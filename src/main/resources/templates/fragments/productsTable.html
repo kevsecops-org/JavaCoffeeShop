@@ -12,11 +12,26 @@
           <p>Search products by <mark>name</mark> or <mark>description</mark></p>
           <form th:action="@{/}" method="post">
             <input type="text" th:value="${input}" name="input" size="50"/>
-            <input type="submit"/>
+            <input type="submit" value="Search" class="btn btn-primary"/>
           </form>
         </div>
 
-
+        <div class="panel-body">
+          <p>Filter products by <mark>type</mark> and <mark>price range</mark></p>
+          <form th:action="@{/filter}" method="get" class="form-inline">
+            <select name="type" class="form-control" style="margin-right:10px;">
+              <option th:selected="${selectedType} == null" value="">All types</option>
+              <option th:each="t : ${T(org.workshop.coffee.domain.ProductType).values()}"
+                      th:value="${t.name()}"
+                      th:text="${t.name()}"
+                      th:selected="${t.name()} == ${selectedType}">
+              </option>
+            </select>
+            <input type="number" step="0.01" min="0" name="minPrice" placeholder="Min price" class="form-control" th:value="${minPrice}" style="margin-right:10px;"/>
+            <input type="number" step="0.01" min="0" name="maxPrice" placeholder="Max price" class="form-control" th:value="${maxPrice}" style="margin-right:10px;"/>
+            <input type="submit" value="Filter" class="btn btn-success"/>
+          </form>
+        </div>
 
         <div class="panel-heading">
           <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/products/add}" class="btn btn-success pull-right">

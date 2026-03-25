@@ -32,4 +32,17 @@ public class HomeController {
         model.addAttribute("products", searchRepository.searchProduct(input));
         return "index";
     }
+
+    @GetMapping("/filter")
+    public String filterProducts(Model model,
+                                 @RequestParam(required = false) String type,
+                                 @RequestParam(required = false) Double minPrice,
+                                 @RequestParam(required = false) Double maxPrice) {
+        model.addAttribute("products", productService.filterProducts(type, minPrice, maxPrice));
+        model.addAttribute("input", "");
+        model.addAttribute("selectedType", type);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
+        return "index";
+    }
 }
