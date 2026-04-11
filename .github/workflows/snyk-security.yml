@@ -39,7 +39,7 @@ jobs:
         run: snyk test --all-projects --severity-threshold=medium
         # Snyk Open Source Test for "product-search" branch
       - name: Snyk Open Source test (product-search)
-        if: github.event.pull_request.head.ref == 'product-search'
+        if: github.event.pull_request.head.ref == 'featureSearch'
         run: snyk test --all-projects --severity-threshold=critical --fail-on=upgradable
         # Snyk Code Test
       - name: Snyk Code test
